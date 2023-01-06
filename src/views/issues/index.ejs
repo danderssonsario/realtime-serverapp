@@ -1,0 +1,50 @@
+<h1>Issues</h1>
+<div class="issue-container">
+  <% for (const issue of viewData) { %>
+  <div class="card" data-id="<%= issue.id %>">
+    <div class="card-body">
+      <img src="<%= issue.author.avatar_url %>" alt="avatar" class="rounded-circle" id="issue-img" crossorigin>
+      <div class="message">
+        <% if(issue.state === 'closed') { %>
+        <h5 class="card-title"><%= issue.title %> (Closed)</h5>
+        <% } else { %>
+        <h5 class="card-title"><%= issue.title %></h5>
+        <% } %>
+        <h6 class="card-subtitle mb-2 text-muted"><%= issue.author.name + ' ' + (issue.author.username) %></h6>
+        <p class="card-text"><%= issue.description %></p>
+      </div>
+      <div class="actions text-end">
+        <% if(issue.state === 'closed') { %>
+        <form action="./issues/<%= issue.iid %>/open" method="post">
+        <button type="submit" class="btn btn-danger">Reopen issue</button>
+        </form>
+        <% } else { %>
+        <form action="./issues/<%= issue.iid %>/close" method="post">
+        <button type="submit" class="btn btn-primary">Close issue</button>
+        </form>
+        <% } %>
+      </div>
+    </div>
+    </div>
+  <% } %>
+</div>
+
+
+<%# Template for client %>
+<template id="issue-template">
+  <div class="card">
+    <div class="card-body">
+      <img src="" alt="avatar" class="rounded-circle" id="issue-img" crossorigin>
+      <div class="message">
+        <h5 class="card-title"></h5>
+        <h6 class="card-subtitle mb-2 text-muted"></h6>
+        <p class="card-text"></p>
+      </div>
+      <div class="actions text-end">
+        <form action="./issues" method="post">
+        <button type="submit" class="btn btn-primary">Close issue</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</template>
